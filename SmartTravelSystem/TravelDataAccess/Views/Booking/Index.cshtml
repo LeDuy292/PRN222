@@ -1,0 +1,492 @@
+@model IEnumerable<TravelDataAccess.Models.Booking>
+
+@{
+    ViewData["Title"] = "My Bookings";
+    var userRole = ViewBag.UserRole as string;
+    var isAdmin = userRole == "Admin";
+    var currentFilter = ViewBag.CurrentFilter as string ?? "all";
+    var currentSort = ViewBag.CurrentSort as string ?? "date";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .navbar {
+            background: white;
+            padding: 15px 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar-brand {
+            font-size: 24px;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .navbar-menu {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .navbar-menu a {
+            text-decoration: none;
+            color: #333;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .navbar-menu a:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        .navbar-menu a.active {
+            background: #667eea;
+            color: white;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-badge {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .btn-logout {
+            background: #ff4757;
+            color: white;
+            padding: 8px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+
+        .btn-logout:hover {
+            background: #ff3838;
+            transform: translateY(-2px);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .page-header {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .page-header h1 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .page-header p {
+            color: #666;
+        }
+
+        .alert {
+            padding: 15px 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .alert-success {
+            background: #d4edda;
+            color: #155724;
+            border-left: 4px solid #28a745;
+        }
+
+        .alert-error {
+            background: #f8d7da;
+            color: #721c24;
+            border-left: 4px solid #dc3545;
+        }
+
+        .controls {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .filter-group {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .filter-group label {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .filter-btn {
+            padding: 8px 16px;
+            border: 2px solid #667eea;
+            background: white;
+            color: #667eea;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-create {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+
+        .btn-create:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .bookings-table {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        th {
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        tbody tr {
+            border-bottom: 1px solid #e0e0e0;
+            transition: all 0.3s ease;
+        }
+
+        tbody tr:hover {
+            background: #f8f9fa;
+        }
+
+        td {
+            padding: 15px;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-confirmed {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-cancelled {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-sm {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 12px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: white;
+        }
+
+        .btn-confirm {
+            background: #28a745;
+        }
+
+        .btn-confirm:hover {
+            background: #218838;
+        }
+
+        .btn-cancel {
+            background: #ffc107;
+            color: #333;
+        }
+
+        .btn-cancel:hover {
+            background: #e0a800;
+        }
+
+        .btn-delete {
+            background: #dc3545;
+        }
+
+        .btn-delete:hover {
+            background: #c82333;
+        }
+
+        .no-bookings {
+            text-align: center;
+            padding: 60px 20px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .no-bookings h3 {
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        select {
+            padding: 8px 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="navbar-brand">✈️ Travel Management</div>
+        <div class="navbar-menu">
+            <a href="@Url.Action("Index", "Trip")">Trip List</a>
+            <a href="@Url.Action("Index", "Booking")" class="active">My Bookings</a>
+        </div>
+        <div class="user-info">
+            <span class="user-badge">@ViewBag.FullName (@userRole)</span>
+            <a href="@Url.Action("Logout", "Login")" class="btn-logout">Logout</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="page-header">
+            <h1>📋 My Bookings</h1>
+            <p>Manage your travel bookings</p>
+        </div>
+
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success">
+                @TempData["SuccessMessage"]
+            </div>
+        }
+
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div class="alert alert-error">
+                @TempData["ErrorMessage"]
+            </div>
+        }
+
+        <div class="controls">
+            <div class="filter-group">
+                <label>Filter:</label>
+                <a href="@Url.Action("Index", new { filter = "all", sort = currentSort })" 
+                   class="filter-btn @(currentFilter == "all" ? "active" : "")">All</a>
+                <a href="@Url.Action("Index", new { filter = "pending", sort = currentSort })" 
+                   class="filter-btn @(currentFilter == "pending" ? "active" : "")">Pending</a>
+                <a href="@Url.Action("Index", new { filter = "confirmed", sort = currentSort })" 
+                   class="filter-btn @(currentFilter == "confirmed" ? "active" : "")">Confirmed</a>
+                <a href="@Url.Action("Index", new { filter = "cancelled", sort = currentSort })" 
+                   class="filter-btn @(currentFilter == "cancelled" ? "active" : "")">Cancelled</a>
+            </div>
+
+            <div class="filter-group">
+                <label>Sort:</label>
+                <select onchange="window.location.href='@Url.Action("Index")?filter=@currentFilter&sort=' + this.value">
+                    @if (currentSort == "date")
+                    {
+                        <option value="date" selected>Date (Ascending)</option>
+                        <option value="date_desc">Date (Descending)</option>
+                    }
+                    else
+                    {
+                        <option value="date">Date (Ascending)</option>
+                        <option value="date_desc" selected>Date (Descending)</option>
+                    }
+                </select>
+            </div>
+
+            @if (!isAdmin)
+            {
+                <a href="@Url.Action("Create")" class="btn-create">➕ New Booking</a>
+            }
+        </div>
+
+        @if (Model.Any())
+        {
+            <div class="bookings-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Booking ID</th>
+                            @if (isAdmin)
+                            {
+                                <th>Customer</th>
+                            }
+                            <th>Trip</th>
+                            <th>Destination</th>
+                            <th>Price</th>
+                            <th>Booking Date</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var booking in Model)
+                        {
+                            <tr>
+                                <td><strong>#@booking.ID</strong></td>
+                                @if (isAdmin)
+                                {
+                                    <td>@booking.Customer.FullName</td>
+                                }
+                                <td>@booking.Trip.Code</td>
+                                <td>@booking.Trip.Destination</td>
+                                <td><strong>$@booking.Trip.Price.ToString("N2")</strong></td>
+                                <td>@booking.BookingDate.ToString("dd/MM/yyyy")</td>
+                                <td>
+                                    <span class="status-badge status-@booking.Status.ToLower()">
+                                        @booking.Status
+                                    </span>
+                                </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        @if (booking.Status == "Pending")
+                                        {
+                                            @if (isAdmin)
+                                            {
+                                                <form method="post" asp-action="Edit" style="display:inline;">
+                                                    @Html.AntiForgeryToken()
+                                                    <input type="hidden" name="id" value="@booking.ID" />
+                                                    <input type="hidden" name="status" value="Confirmed" />
+                                                    <button type="submit" class="btn-sm btn-confirm">✓ Confirm</button>
+                                                </form>
+                                            }
+                                            <form method="post" asp-action="Edit" style="display:inline;">
+                                                @Html.AntiForgeryToken()
+                                                <input type="hidden" name="id" value="@booking.ID" />
+                                                <input type="hidden" name="status" value="Cancelled" />
+                                                <button type="submit" class="btn-sm btn-cancel">✗ Cancel</button>
+                                            </form>
+                                        }
+                                        @if (booking.Status == "Cancelled")
+                                        {
+                                            <form method="post" asp-action="Delete" style="display:inline;">
+                                                @Html.AntiForgeryToken()
+                                                <input type="hidden" name="id" value="@booking.ID" />
+                                                <button type="submit" class="btn-sm btn-delete" 
+                                                        onclick="return confirm('Are you sure you want to delete this booking?')">
+                                                    🗑️ Delete
+                                                </button>
+                                            </form>
+                                        }
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+        else
+        {
+            <div class="no-bookings">
+                <h3>No bookings found</h3>
+                <p>You haven't made any bookings yet. Start exploring our trips!</p>
+                @if (!isAdmin)
+                {
+                    <a href="@Url.Action("Create")" class="btn-create" style="margin-top: 20px;">Create Your First Booking</a>
+                }
+            </div>
+        }
+    </div>
+</body>
+</html>

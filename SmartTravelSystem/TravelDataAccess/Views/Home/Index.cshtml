@@ -1,0 +1,30 @@
+﻿@{
+    ViewData["Title"] = "Home";
+}
+
+<div class="hero">
+    <h1>🌍 Explore the World</h1>
+    <p>Discover amazing destinations and book your dream vacation with us</p>
+    <div style="display: flex; gap: 1rem; justify-content: center; margin-top: 2rem;">
+        <a href="@Url.Action("Index", "Register")" class="btn btn-primary" style="padding: 1rem 2.5rem; font-size: 1.2rem;">Get Started</a>
+        <a href="@Url.Action("Index", "Login")" class="btn btn-outline" style="padding: 1rem 2.5rem; font-size: 1.2rem; background: rgba(255,255,255,0.1); color: white; border-color: white;">Sign In</a>
+    </div>
+</div>
+
+<section class="features-grid">
+    <div class="feature-card">
+        <div class="feature-icon">🗺️</div>
+        <h3>Amazing Destinations</h3>
+        <p>Explore trips to Paris, Tokyo, New York and many more exciting locations around the world</p>
+    </div>
+    <div class="feature-card">
+        <div class="feature-icon">💰</div>
+        <h3>Best Prices</h3>
+        <p>Get the best deals on travel packages with transparent pricing and no hidden fees</p>
+    </div>
+    <div class="feature-card">
+        <div class="feature-icon">📱</div>
+        <h3>Easy Booking</h3>
+        <p>Book your trips in just a few clicks and manage all your bookings in one place</p>
+    </div>
+</section>
