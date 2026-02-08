@@ -1,0 +1,29 @@
+D:\Ky7\PRN222\SmartTravelSystem\TravelDataAccess\bin\Debug\net8.0\TravelDataAccess.deps.json
+D:\Ky7\PRN222\SmartTravelSystem\TravelDataAccess\bin\Debug\net8.0\TravelDataAccess.runtimeconfig.json
+D:\Ky7\PRN222\SmartTravelSystem\TravelDataAccess\bin\Debug\net8.0\TravelDataAccess.dll
+D:\Ky7\PRN222\SmartTravelSystem\TravelDataAccess\bin\Debug\net8.0\TravelDataAccess.pdb
+D:\Ky7\PRN222\SmartTravelSystem\TravelDataAccess\obj\Debug\net8.0\TravelDataAccess.csproj.AssemblyReference.cache
+D:\Ky7\PRN222\SmartTravelSystem\TravelDataAccess\obj\Debug\net8.0\TravelDataAccess.GeneratedMSBuildEditorConfig.editorconfig
+D:\Ky7\PRN222\SmartTravelSystem\TravelDataAccess\obj\Debug\net8.0\TravelDataAccess.AssemblyInfoInputs.cache
+D:\Ky7\PRN222\SmartTravelSystem\TravelDataAccess\obj\Debug\net8.0\TravelDataAccess.AssemblyInfo.cs
+D:\Ky7\PRN222\SmartTravelSystem\TravelDataAccess\obj\Debug\net8.0\TravelDataAccess.csproj.CoreCompileInputs.cache
+D:\Ky7\PRN222\SmartTravelSystem\TravelDataAccess\obj\Debug\net8.0\TravelDataAccess.dll
+D:\Ky7\PRN222\SmartTravelSystem\TravelDataAccess\obj\Debug\net8.0\refint\TravelDataAccess.dll
+D:\Ky7\PRN222\SmartTravelSystem\TravelDataAccess\obj\Debug\net8.0\TravelDataAccess.pdb
+D:\Ky7\PRN222\SmartTravelSystem\TravelDataAccess\obj\Debug\net8.0\TravelDataAccess.genruntimeconfig.cache
+D:\Ky7\PRN222\SmartTravelSystem\TravelDataAccess\obj\Debug\net8.0\ref\TravelDataAccess.dll
+d:\PRN222\New folder (2)\ASG_PRN222_PhamHongQuan_De180093_SE18D05\SmartTravelSystem\TravelDataAccess\bin\Debug\net8.0\TravelDataAccess.deps.json
+d:\PRN222\New folder (2)\ASG_PRN222_PhamHongQuan_De180093_SE18D05\SmartTravelSystem\TravelDataAccess\bin\Debug\net8.0\TravelDataAccess.runtimeconfig.json
+d:\PRN222\New folder (2)\ASG_PRN222_PhamHongQuan_De180093_SE18D05\SmartTravelSystem\TravelDataAccess\bin\Debug\net8.0\TravelDataAccess.dll
+d:\PRN222\New folder (2)\ASG_PRN222_PhamHongQuan_De180093_SE18D05\SmartTravelSystem\TravelDataAccess\bin\Debug\net8.0\TravelDataAccess.pdb
+d:\PRN222\New folder (2)\ASG_PRN222_PhamHongQuan_De180093_SE18D05\SmartTravelSystem\TravelDataAccess\obj\Debug\net8.0\TravelDataAccess.csproj.AssemblyReference.cache
+d:\PRN222\New folder (2)\ASG_PRN222_PhamHongQuan_De180093_SE18D05\SmartTravelSystem\TravelDataAccess\obj\Debug\net8.0\TravelDataAccess.GeneratedMSBuildEditorConfig.editorconfig
+d:\PRN222\New folder (2)\ASG_PRN222_PhamHongQuan_De180093_SE18D05\SmartTravelSystem\TravelDataAccess\obj\Debug\net8.0\TravelDataAccess.AssemblyInfoInputs.cache
+d:\PRN222\New folder (2)\ASG_PRN222_PhamHongQuan_De180093_SE18D05\SmartTravelSystem\TravelDataAccess\obj\Debug\net8.0\TravelDataAccess.AssemblyInfo.cs
+d:\PRN222\New folder (2)\ASG_PRN222_PhamHongQuan_De180093_SE18D05\SmartTravelSystem\TravelDataAccess\obj\Debug\net8.0\TravelDataAccess.csproj.CoreCompileInputs.cache
+d:\PRN222\New folder (2)\ASG_PRN222_PhamHongQuan_De180093_SE18D05\SmartTravelSystem\TravelDataAccess\obj\Debug\net8.0\TravelDataAccess.sourcelink.json
+d:\PRN222\New folder (2)\ASG_PRN222_PhamHongQuan_De180093_SE18D05\SmartTravelSystem\TravelDataAccess\obj\Debug\net8.0\TravelDataAccess.dll
+d:\PRN222\New folder (2)\ASG_PRN222_PhamHongQuan_De180093_SE18D05\SmartTravelSystem\TravelDataAccess\obj\Debug\net8.0\refint\TravelDataAccess.dll
+d:\PRN222\New folder (2)\ASG_PRN222_PhamHongQuan_De180093_SE18D05\SmartTravelSystem\TravelDataAccess\obj\Debug\net8.0\TravelDataAccess.pdb
+d:\PRN222\New folder (2)\ASG_PRN222_PhamHongQuan_De180093_SE18D05\SmartTravelSystem\TravelDataAccess\obj\Debug\net8.0\TravelDataAccess.genruntimeconfig.cache
+d:\PRN222\New folder (2)\ASG_PRN222_PhamHongQuan_De180093_SE18D05\SmartTravelSystem\TravelDataAccess\obj\Debug\net8.0\ref\TravelDataAccess.dll

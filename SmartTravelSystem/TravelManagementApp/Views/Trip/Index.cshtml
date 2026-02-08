@@ -1,0 +1,85 @@
+@model IEnumerable<TravelDataAccess.Models.Trip>
+@{
+    ViewData["Title"] = "Discover Trisp";
+    var isAdmin = ViewBag.IsAdmin ?? false;
+}
+
+<!-- Hero Section -->
+<div class="row mb-5">
+    <div class="col-12 text-center py-5 rounded-3 text-white" 
+         style="background: var(--primary-gradient); box-shadow: 0 10px 30px rgba(0, 97, 255, 0.2);">
+        <h1 class="display-4 fw-bold mb-3">Discover Your Next Adventure 🌍</h1>
+        <p class="lead mb-4" style="opacity: 0.9;">Explore the world with our premium curated trips.</p>
+        
+        @if (isAdmin)
+        {
+            <a asp-action="Create" class="btn btn-light btn-lg px-4 py-2 fw-bold text-primary shadow-sm">
+                ➕ Add New Trip
+            </a>
+        }
+    </div>
+</div>
+
+<!-- Trip Grid -->
+<div class="row g-4">
+    @foreach (var trip in Model)
+    {
+        <div class="col-md-6 col-lg-4">
+            <div class="card h-100 position-relative">
+                <div class="card-header border-0 pb-0 pt-4 bg-transparent d-flex justify-content-between align-items-center">
+                    <span class="badge @(trip.Status == "Available" ? "bg-success" : "bg-secondary") bg-opacity-10 text-@(trip.Status == "Available" ? "success" : "secondary") px-3 py-2 rounded-pill fw-bold">
+                        @trip.Status.ToUpper()
+                    </span>
+                    <small class="text-muted fw-bold">@trip.Code</small>
+                </div>
+                
+                <div class="card-body">
+                    <h3 class="card-title fw-bold text-dark mb-2">
+                         @trip.Destination
+                    </h3>
+                    <div class="display-6 fw-bold text-primary mb-4">
+                        $@trip.Price.ToString("N0")
+                    </div>
+                    
+                    <div class="d-grid gap-2">
+                        @if (isAdmin)
+                        {
+                            <div class="btn-group shadow-sm rounded-3">
+                                <a asp-action="Edit" asp-route-id="@trip.ID" class="btn btn-outline-primary fw-bold">
+                                    ✏️ Edit
+                                </a>
+                                <a asp-action="Delete" asp-route-id="@trip.ID" class="btn btn-outline-danger fw-bold">
+                                    🗑️ Delete
+                                </a>
+                            </div>
+                        }
+                        else
+                        {
+                            @if (trip.Status == "Available")
+                            {
+                                <a asp-controller="Booking" asp-action="Create" class="btn btn-primary btn-lg shadow-sm">
+                                    Book Now ➜
+                                </a>
+                            }
+                            else
+                            {
+                                <button class="btn btn-secondary btn-lg" disabled>
+                                    Sold Out
+                                </button>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@if (!Model.Any())
+{
+    <div class="text-center py-5">
+        <div class="display-1 text-muted opacity-25 mb-3">✈️</div>
+        <h3 class="text-muted fw-bold">No trips found</h3>
+        <p class="text-muted">Start adding new destinations to see them here.</p>
+    </div>
+}

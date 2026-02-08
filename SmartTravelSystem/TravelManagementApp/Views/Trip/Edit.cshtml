@@ -1,0 +1,64 @@
+@model TravelDataAccess.Models.Trip
+@{
+    ViewData["Title"] = "Edit Trip";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow-sm" style="border-radius: 15px; border: none;">
+            <div class="card-header" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 15px 15px 0 0; padding: 20px;">
+                <h3 class="mb-0">
+                    <span style="font-size: 1.5rem;">✏️</span> Edit Trip
+                </h3>
+            </div>
+            <div class="card-body p-4">
+                <form asp-action="Edit" method="post">
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+                    
+                    <input type="hidden" asp-for="ID" />
+                    
+                    <div class="mb-3">
+                        <label asp-for="Code" class="form-label fw-bold">Trip Code</label>
+                        <input asp-for="Code" class="form-control" style="border-radius: 10px; padding: 12px;" />
+                        <span asp-validation-for="Code" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Destination" class="form-label fw-bold">Destination</label>
+                        <input asp-for="Destination" class="form-control" style="border-radius: 10px; padding: 12px;" />
+                        <span asp-validation-for="Destination" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Price" class="form-label fw-bold">Price ($)</label>
+                        <input asp-for="Price" class="form-control" type="number" step="0.01" style="border-radius: 10px; padding: 12px;" />
+                        <span asp-validation-for="Price" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-4">
+                        <label asp-for="Status" class="form-label fw-bold">Status</label>
+                        <select asp-for="Status" class="form-select" style="border-radius: 10px; padding: 12px;">
+                            <option value="Available">Available</option>
+                            <option value="Booked">Booked</option>
+                        </select>
+                        <span asp-validation-for="Status" class="text-danger"></span>
+                    </div>
+
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-primary flex-fill" 
+                                style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border: none; border-radius: 10px; padding: 12px; font-weight: 600;">
+                            💾 Save Changes
+                        </button>
+                        <a asp-action="Index" class="btn btn-outline-secondary flex-fill" style="border-radius: 10px; padding: 12px; font-weight: 600;">
+                            ❌ Cancel
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

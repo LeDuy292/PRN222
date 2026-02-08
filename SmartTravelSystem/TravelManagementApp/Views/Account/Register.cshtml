@@ -1,0 +1,169 @@
+@model TravelManagementApp.ViewModels.RegisterViewModel
+@{
+    ViewData["Title"] = "Register";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Smart Travel System</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap">
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #0061ff 0%, #60efff 100%);
+            --glass-bg: rgba(255, 255, 255, 0.9);
+        }
+        
+        body {
+            background: var(--primary-gradient);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 20px 0;
+        }
+
+        .login-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            padding: 2.5rem;
+            width: 100%;
+            max-width: 500px;
+            transform: translateY(0);
+            transition: transform 0.3s ease;
+        }
+
+        .login-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .brand-icon {
+            font-size: 3.5rem;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+            display: inline-block;
+        }
+
+        .form-control {
+            border-radius: 12px;
+            padding: 12px 16px;
+            border: 2px solid #eef2f6;
+            background: #f8fafc;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            background: white;
+            border-color: #0061ff;
+            box-shadow: 0 0 0 4px rgba(0, 97, 255, 0.1);
+        }
+
+        .btn-primary {
+            background: var(--primary-gradient);
+            border: none;
+            border-radius: 12px;
+            padding: 14px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            box-shadow: 0 10px 20px rgba(0, 97, 255, 0.2);
+            transition: all 0.3s ease;
+            width: 100%;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px rgba(0, 97, 255, 0.3);
+            color: white;
+        }
+
+        .link-primary {
+            color: #0061ff;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .link-primary:hover {
+            color: #004ecc;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-card">
+        <div class="text-center">
+            <div class="brand-icon">✈️</div>
+            <h2 class="fw-bold mb-1" style="color: #1e293b;">Join Us</h2>
+            <p class="text-muted mb-4">Create your account to start traveling</p>
+        </div>
+
+        <form asp-action="Register" method="post">
+            <div asp-validation-summary="ModelOnly" class="alert alert-danger border-0 bg-danger bg-opacity-10 text-danger rounded-3 p-3 mb-3"></div>
+            
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label asp-for="Code" class="form-label fw-bold small text-uppercase text-muted">Code</label>
+                    <input asp-for="Code" class="form-control" placeholder="CUS-XXX" />
+                    <span asp-validation-for="Code" class="text-danger small mt-1 d-block"></span>
+                </div>
+                 <div class="col-md-6 mb-3">
+                    <label asp-for="Age" class="form-label fw-bold small text-uppercase text-muted">Age</label>
+                    <input asp-for="Age" class="form-control" placeholder="18+" />
+                    <span asp-validation-for="Age" class="text-danger small mt-1 d-block"></span>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="FullName" class="form-label fw-bold small text-uppercase text-muted">Full Name</label>
+                <input asp-for="FullName" class="form-control" placeholder="John Doe" />
+                <span asp-validation-for="FullName" class="text-danger small mt-1 d-block"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Email" class="form-label fw-bold small text-uppercase text-muted">Email</label>
+                <input asp-for="Email" class="form-control" placeholder="john@example.com" />
+                <span asp-validation-for="Email" class="text-danger small mt-1 d-block"></span>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label asp-for="Password" class="form-label fw-bold small text-uppercase text-muted">Password</label>
+                    <input asp-for="Password" class="form-control" placeholder="••••••" />
+                    <span asp-validation-for="Password" class="text-danger small mt-1 d-block"></span>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <label asp-for="ConfirmPassword" class="form-label fw-bold small text-uppercase text-muted">Confirm</label>
+                    <input asp-for="ConfirmPassword" class="form-control" placeholder="••••••" />
+                    <span asp-validation-for="ConfirmPassword" class="text-danger small mt-1 d-block"></span>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary mb-3">
+                Create Account
+            </button>
+            
+            <div class="text-center">
+                <span class="text-muted">Already have an account?</span>
+                <a asp-action="Login" class="link-primary ms-1">Sign In</a>
+            </div>
+        </form>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+</body>
+</html>
